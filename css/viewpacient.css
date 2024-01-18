@@ -1,0 +1,73 @@
+
+.col{
+    justify-content: center;
+    width: 70%;
+    text-align: center;
+}
+th{
+    height: 80px;
+}
+
+
+#tabledata{
+    width: 80%;
+}
+
+.modalbody{
+    width: 100%;
+}
+
+.mbmodal{
+    width: 90%;
+    text-align: left;
+}
+
+#modalcontent{
+    width: 100%;
+}
+
+.trmodal{
+    height: 100px;
+}
+
+.trmodal td{
+    width: 100px;
+}
+
+.mbmodalinput{
+    width: 90%;
+    text-align: left;
+}
+
+.mbmodalinput textarea{
+    height: 100px;
+}
+
+.tablecontent{
+    padding: 5px;
+    margin: 15px;
+}
+ 
+table tr, td, th {
+    font-weight: bold;
+    text-align: center;
+    height: 20px;
+    font-size: 18px;
+}
+
+table tr{
+    border-radius: 15%;
+}
+ #btn{
+    font-weight: bold;
+ }
+
+ .navbar{
+    width: 500px !important;
+    margin-left: 460px !important;
+    background-color: #3b3b3b3b !important;
+    color: #ffff !important;
+}
+
+
+

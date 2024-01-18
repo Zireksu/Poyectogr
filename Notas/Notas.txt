@@ -1,0 +1,126 @@
+########Crear tabla de usuarios#########
+CREATE TABLE users(
+	id INT AUTO_INCREMENT not null,
+    nombre VARCHAR(55),
+    apellido VARCHAR(55),
+    username VARCHAR(55),
+    password VARCHAR(255),
+    correo VARCHAR(255),
+    foto VARCHAR(255)
+);
+
+
+#########Crear procedimiento para verificar login#######
+CREATE DEFINER=`root`@`localhost`
+ PROCEDURE `Get_User_Data`(IN `nameus` VARCHAR(255) CHARSET utf8, IN `userpass` VARCHAR(255) CHARSET utf8) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER 
+	SELECT COUNT(*) AS cont FROM users WHERE users.username = nameus AND users.password = userpass
+
+
+
+#######Crear procedimiento para recuperar correo#############
+CREATE DEFINER=`root`@`localhost`
+ PROCEDURE `get_email`(IN `nameus` VARCHAR(255) CHARSET utf8) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER 
+	SELECT correo as mail FROM users WHERE users.username = nameus
+
+######Crear procedimiento para  cambiar clave en recuperación de contraseña############
+CREATE DEFINER=`root`@`localhost`
+ PROCEDURE `change_pass`(IN `nameus` VARCHAR(255) CHARSET utf8, IN `userpass` VARCHAR(255) CHARSET utf8) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER 
+	UPDATE users SET users.password = userpass WHERE users.username = nameus
+
+
+######Procedimiento para recuperar clave al enviar recuperación por correo##############
+CREATE DEFINER=`root`@`localhost`
+ PROCEDURE `get_pass`(IN `nameus` VARCHAR(255) CHARSET utf8) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER 
+	SELECT users.password AS pass FROM users WHERE users.username = nameus
+
+######Crear tabla de pacientes################
+CREATE TABLE pacientes(
+	id int not null AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(255),
+    fecha_nacimiento varchar(255),
+    genero varchar(10),
+    direccion varchar(255),
+    telefono varchar(20),
+    correo varchar(50),
+    cedula varchar(25),
+    medico_cabecera varchar(60)
+);
+
+
+#######crear tabla de historial de visitas###########
+CREATE TABLE historial_visitas(
+	id_paciente int not null,
+    nota_medica varchar(255),
+    resultados varchar(255),
+    tratamiento text,
+    diagnostico varchar(60),
+    Tipo varchar(50),
+    fecha_asignado varchar(11),
+    fecha varchar(11), 
+    estado_consulta varchar(20)
+);
+
+
+##### procedimiento para recuperar datos de la sesión#####
+CREATE DEFINER=`root`@`localhost`
+ PROCEDURE `get_dataSession`(IN `nameus` VARCHAR(255) CHARSET utf8) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER 
+SELECT users.Nombre AS nombre, users.Apellido AS apellido, users.foto AS foto FROM users WHERE users.username = nameus
+
+
+####procedimiento para listar pacientes#####
+SET @sql_query = '';
+DELIMITER //
+CREATE PROCEDURE `list_patients`(
+  IN `filterval` VARCHAR(255) CHARSET utf8,
+  IN `filt` VARCHAR(255) CHARSET utf8,
+  IN `limit1` INT,
+  IN `limit2` INT
+)
+BEGIN
+
+  IF filt = "filname" THEN
+    SET @sql_query = CONCAT('SELECT pc.nombre, pc.cedula, pc.direccion, pc.fecha_nacimiento, pc.genero, pc.medico_cabecera, pc.telefono FROM pacientes pc WHERE pc.nombre LIKE "', filterval, '" ');
+  ELSEIF filt = "filced" THEN
+    SET @sql_query = CONCAT('SELECT pc.nombre, pc.cedula, pc.direccion, pc.fecha_nacimiento, pc.genero, pc.medico_cabecera, pc.telefono FROM pacientes pc WHERE pc.cedula LIKE "', filterval, '" ');
+  ELSEIF filt = "filmed" THEN
+    SET @sql_query = CONCAT('SELECT pc.nombre, pc.cedula, pc.direccion, pc.fecha_nacimiento, pc.genero, pc.medico_cabecera, pc.telefono FROM pacientes pc WHERE pc.medico_cabecera LIKE "', filterval, '" ');
+ELSE
+    SET @sql_query = CONCAT('SELECT pc.nombre, pc.cedula, pc.direccion, pc.fecha_nacimiento, pc.genero, pc.medico_cabecera, pc.telefono FROM pacientes pc ');
+  END IF;
+
+  SET @sql_query = CONCAT(@sql_query, 'LIMIT ', limit1, ', ', limit2);
+
+
+  PREPARE final_query FROM @sql_query;
+  EXECUTE final_query;
+  DEALLOCATE PREPARE final_query;
+END //
+DELIMITER;
+
+
+##### PROCEDIMIENTO PARA RECUPERAR LA CANTIDAD DE CITAS EN EL DÍA Y DEL SIGUIENTE DÍA ########
+SET @citashoy = 0;
+SET @citasmanana = 0;
+
+SET @consultalvl1 = "";
+SET @consultalvl2 = "";
+SET @consultalvl3 = "";
+SET @consultalvl4 = "";
+
+DELIMITER //
+CREATE PROCEDURE `getcont_citas`(
+  IN `nameus` VARCHAR(255) CHARSET utf8
+)
+BEGIN
+
+	SET @consultalvl1 := (SELECT CONCAT(COUNT(*),',', consulttype) from formpacient where consulttype = 'Cardiología');
+    SET @consultalvl2 := (SELECT CONCAT(COUNT(*),',', consulttype) from formpacient where consulttype = 'Dermatología');
+    SET @consultalvl3 := (SELECT CONCAT(COUNT(*),',', consulttype) from formpacient where consulttype = 'Medicina General');
+    SET @consultalvl4 := (SELECT CONCAT(COUNT(*),',', consulttype) from formpacient where consulttype = 'Odontologia');
+
+	SET @citashoy := (SELECT COUNT(*) FROM formpacient WHERE formpacient.doctor = nameus AND formpacient.date = CURDATE());
+    
+    SET @citasmanana := (SELECT COUNT(*) FROM formpacient WHERE formpacient.doctor = nameus AND formpacient.date = DATE_ADD(CURDATE(), INTERVAL 1 DAY));
+    
+    SELECT @citashoy AS citastd, @citasmanana AS citastnd, @consultalvl1 AS cardiologia, @consultalvl2 AS dermatologia, @consultalvl3 AS medicina_g, @consultalvl4 AS odontologia;
+END //

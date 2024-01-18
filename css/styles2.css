@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins%3Awght%40400%3B500&display=swap%27%29%3B');
+/*body {
+    font-family: 'Poppins', sans-serif;
+    background: #ececec;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+*/
+
+.rnd{
+    margin-top: 10px;
+    padding: 15px 25px !important;
+    font-size: 20px !important;
+    border-radius: 20px !important;
+}
+
+.btn{
+    /*margin-top: 100px;*/
+    padding: 11px 21px !important;
+    font-size: 20px !important;
+    border-color: white !important;
+    background-color:#38b593 !important;
+    border-radius: 20px !important;
+}
+
+
+.btn1 {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 80px;
+  }
+
+  .btn2 {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 155px;
+  }
+
+  #btn3{
+    padding: 3px 3px !important;
+    border-radius: 2px !important;
+  }
+  .bkpass{
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 135px;
+  }
+
+  .alertcred{
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+  }
+
+ a{
+    text-decoration: none !important;
+    font-size: 17px;
+  }
+
+  .centrar{
+    align:center !important;
+  }
+
+  .box-area{
+    width: 930px;
+    align-content: center;
+    border-radius: 20px !important;
+  }
+
+  
+
+  .col1{
+    border-radius: 20px !important;
+  }
+
+#logout{
+  padding: 0px 15px !important;
+  font-size: 20px !important;
+  border-color: white !important;
+  background-color:#38b593 !important;
+  border-radius: 2px !important;
+  position: fixed;
+  bottom: 20px;
+  left: 0px; 
+  z-index: 999;
+}
+
+#home{
+  padding: 0px 15px !important;
+  font-size: 20px !important;
+  border-color: white !important;
+  background-color:#38b593 !important;
+  border-radius: 2px !important;
+  position: fixed;
+  bottom: 60px;
+  left: 0px; 
+  z-index: 999;
+}
+
+
+#goto{
+  padding: 0px 5px !important;
+  border-color: white !important;
+  background-color: white !important;
+  border-radius: 2px !important;
+
+}
+  @media only screen and (max-width: 768px) {
+
+    .box-area{
+      margin: 0 10px !important;
+    }
+    
+    .left-box{
+      height: 100px !important;
+      overflow: hidden !important;
+    }
+
+    .right-box{
+      padding: 20px !important;
+    }
+
+
+    .img{
+      width: 85px !important;
+      height: 85px;
+    }
+  }

@@ -1,0 +1,21 @@
+**SE AGREGARON NUEVOS ARCHIVOS:
+-formpacient.html
+-viewpacient.html
+-data.js
+-viewdata.js
+-consulttype.php
+-doctor.php
+-formpacient.php
+-viewpacient.php
+-viewdetailpacient.php
+
+**SE MODIFICARON LOS SIGUIENTES ARCHIVOS:
+-Conexion.php : SE AGREGO NUEVA CONEXION A LA BD PORQUE LA NETA NO ME FUNKABA CON LA TUYA JEJE
+-lateralbar.php : SE AGREGARON NEUVAS OPCIONES AL MENU (AGREGAR PACIENTE, VER CITAS, HISTORIAL CITAS)
+
+
+**SE AGREGO AL REPOSITORIO ARCHIVO COMPRIMIDO DONDE CONTIENE LOS ARCHIVOS SQL 
+PARA AGREGAR LAS TABLAS (NOMBRE DE ARCHIVO: TablasSQL.zip)
+
+
+**SE AGREGO DOCUMENTACION AL CODIGO (o al menos eso creo xd)
